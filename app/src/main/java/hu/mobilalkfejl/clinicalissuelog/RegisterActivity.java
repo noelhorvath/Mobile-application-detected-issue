@@ -15,14 +15,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -121,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this,"Wrong date format!",Toast.LENGTH_LONG).show();
                         }
                         mFirestore.collection("practitioners").document(email).set(practitioner);
-                        afterRegistration();
+                        afterRegistration(email);
                     }else{
                              Log.d(LOG_TAG, "Practitioner creation failed!");
                             Toast.makeText(RegisterActivity.this,"Practitioner creation failed: \n" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -134,8 +131,9 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void afterRegistration(){
+    public void afterRegistration(String email){
         Intent intent = new Intent(this, IssueListActivity.class);
+        intent.putExtra("currentPractitionerEmail",email);
         startActivity(intent);
     }
 
