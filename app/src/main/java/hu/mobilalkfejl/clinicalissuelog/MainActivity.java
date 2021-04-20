@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
                 if(task.isSuccessful()){
                     Log.d(LOG_TAG, "Practitioner logged in successfully!");
-                    afterLogin();
+                    afterLogin(email);
                 }else{
                     Log.d(LOG_TAG, "Practitioner login failed!");
                     Toast.makeText(MainActivity.this,"Practitioner login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -64,8 +65,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void afterLogin(){
+    public void afterLogin(String email){
         Intent intent = new Intent(this,IssueListActivity.class);
+        intent.putExtra("currentPractitionerEmail",email);
         startActivity(intent);
     }
 }
