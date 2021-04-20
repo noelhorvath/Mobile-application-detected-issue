@@ -19,9 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
 
-
     EditText emailET;
     EditText passwordET;
+
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -45,15 +45,23 @@ public class MainActivity extends AppCompatActivity {
         String email = emailET.getText().toString();
         String password = passwordET.getText().toString();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()){
-                Log.d(LOG_TAG, "Practitioner logged in successfully!");
-                afterLogin();
+        if(!email.isEmpty() && !password.isEmpty()){
+            firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
+                if(task.isSuccessful()){
+                    Log.d(LOG_TAG, "Practitioner logged in successfully!");
+                    afterLogin();
+                }else{
+                    Log.d(LOG_TAG, "Practitioner login failed!");
+                    Toast.makeText(MainActivity.this,"Practitioner login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }else{
+            if(email.isEmpty() && password.isEmpty()){
+                Toast.makeText(MainActivity.this,"Empty email and password fields!", Toast.LENGTH_LONG).show();
             }else{
-                Log.d(LOG_TAG, "Practitioner login failed!");
-                Toast.makeText(MainActivity.this,"Practitioner login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Missing email or password for login!", Toast.LENGTH_LONG).show();
             }
-        });
+        }
     }
 
     public void afterLogin(){
