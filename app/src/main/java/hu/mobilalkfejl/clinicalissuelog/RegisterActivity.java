@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                         } catch (ParseException e) {
                             Toast.makeText(RegisterActivity.this,"Wrong date format!",Toast.LENGTH_LONG).show();
                         }
-                        mFirestore.collection("practitioners").document(email).set(practitioner);
+                        mFirestore.collection("Practitioners").document(email).set(practitioner);
                         afterRegistration(email);
                     }else{
                              Log.d(LOG_TAG, "Practitioner creation failed!");
@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void afterRegistration(String email){
-        Intent intent = new Intent(this, IssueListActivity.class);
+        Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
         startActivity(intent);
     }
