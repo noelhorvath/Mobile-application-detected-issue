@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:backgroundTint="@color/cardview_dark_background"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/issuePatientNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:labelFor="@id/issuePatientName"
+                android:text="@string/patient_name"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/issuePatientName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_light_background"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/issueCodeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@color/cardview_light_background"
+                android:labelFor="@id/issuePatientName"
+                />
+
+            <TextView
+                android:id="@+id/issueCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="code"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_light_background"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/issueStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@color/cardview_light_background"
+                android:labelFor="@id/issuePatientName"
+                />
+
+            <TextView
+                android:id="@+id/issueStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="status"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_light_background"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:id="@+id/issueSeverityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Severity:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@color/cardview_light_background"
+                android:labelFor="@id/issuePatientName"
+                />
+
+            <TextView
+                android:id="@+id/issueSeverity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="severity"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_light_background"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/issueIdentifiedDateTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Identified:"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textAllCaps="true"
+                android:textColor="@color/cardview_light_background"
+                android:labelFor="@id/issuePatientName"
+                />
+
+            <TextView
+                android:id="@+id/issueIdentifiedDateTimey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="identifiedDateTime"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@color/cardview_light_background"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
