@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class Practitioner {
     String id;
+    String name;
     boolean active;
     String gender;
     Date birthDate;
     Qualification qualification;
 
-    public Practitioner(boolean active, String gender, Date birthDate, Qualification qualification) {
+    public Practitioner(String name, boolean active, String gender, Date birthDate, Qualification qualification) {
+        this.name = name;
         this.active = active;
         this.gender = gender;
         this.birthDate = birthDate;
@@ -34,6 +36,10 @@ public class Practitioner {
         return birthDate;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Qualification getQualification() {
         return qualification;
     }
@@ -56,5 +62,9 @@ public class Practitioner {
 
     public void setQualification(Qualification qualification) {
         this.qualification = qualification;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

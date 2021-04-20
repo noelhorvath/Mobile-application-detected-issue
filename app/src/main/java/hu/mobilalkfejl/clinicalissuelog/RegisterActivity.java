@@ -113,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
                         Practitioner practitioner = null;
                         try {
-                            practitioner = new Practitioner(active,gender, dateFormat.parse(birthDate), qualification);
+                            practitioner = new Practitioner(name,active,gender, dateFormat.parse(birthDate), qualification);
                         } catch (ParseException e) {
                             Toast.makeText(RegisterActivity.this,"Wrong date format!",Toast.LENGTH_LONG).show();
                         }
