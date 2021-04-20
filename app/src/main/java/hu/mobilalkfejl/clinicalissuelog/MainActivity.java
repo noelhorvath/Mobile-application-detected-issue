@@ -1,6 +1,5 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,12 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
@@ -66,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void afterLogin(String email){
-        Intent intent = new Intent(this,IssueListActivity.class);
+        Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
         startActivity(intent);
     }
