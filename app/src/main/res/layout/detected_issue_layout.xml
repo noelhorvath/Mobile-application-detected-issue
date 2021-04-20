@@ -24,7 +24,7 @@
                 android:id="@+id/issuePatientNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:labelFor="@id/issuePatientName"
+                android:labelFor="@id/textIssuePatientName"
                 android:text="@string/patient_name"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="18sp"
@@ -32,10 +32,9 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/issuePatientName"
+                android:id="@+id/textIssuePatientName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="name"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/cardview_light_background"
@@ -52,22 +51,21 @@
             android:layout_marginRight="20dp">
 
             <TextView
-                android:id="@+id/issueCodeLabel"
+                android:id="@+id/textIssueCodeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Code:"
+                android:text="@string/code"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
-                android:labelFor="@id/issuePatientName"
+                android:labelFor="@id/textIssueCode"
                 />
 
             <TextView
-                android:id="@+id/issueCode"
+                android:id="@+id/textIssueCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="code"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/cardview_light_background"
@@ -84,22 +82,21 @@
             android:layout_marginRight="20dp">
 
             <TextView
-                android:id="@+id/issueStatusLabel"
+                android:id="@+id/textIssueStatusLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status:"
+                android:text="@string/status"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
-                android:labelFor="@id/issuePatientName"
+                android:labelFor="@id/textIssueStatus"
                 />
 
             <TextView
-                android:id="@+id/issueStatus"
+                android:id="@+id/textIssueStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="status"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/cardview_light_background"
@@ -116,22 +113,21 @@
             android:layout_marginRight="20dp">
 
             <TextView
-                android:id="@+id/issueSeverityLabel"
+                android:id="@+id/textIssueSeverityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Severity:"
+                android:text="@string/severity"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
-                android:labelFor="@id/issuePatientName"
+                android:labelFor="@id/textIssueSeverity"
                 />
 
             <TextView
-                android:id="@+id/issueSeverity"
+                android:id="@+id/textIssueSeverity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="severity"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/cardview_light_background"
@@ -149,29 +145,25 @@
             android:layout_marginBottom="20dp">
 
             <TextView
-                android:id="@+id/issueIdentifiedDateTimeLabel"
+                android:id="@+id/textIssueIdentifiedDateTimeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Identified:"
+                android:text="@string/identified"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
-                android:labelFor="@id/issuePatientName"
+                android:labelFor="@id/textIssueIdentifiedDateTime"
                 />
 
             <TextView
-                android:id="@+id/issueIdentifiedDateTimey"
+                android:id="@+id/textIssueIdentifiedDateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="identifiedDateTime"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textColor="@color/cardview_light_background"
                 />
-
         </LinearLayout>
-
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>
