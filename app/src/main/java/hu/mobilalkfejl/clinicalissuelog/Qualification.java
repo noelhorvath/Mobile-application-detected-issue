@@ -5,8 +5,7 @@ public class Qualification {
     private String code;
     private String issuer;
 
-    public Qualification(String id, String code, String issuer) {
-        this.id = id;
+    public Qualification(String code, String issuer) {
         this.code = code;
         this.issuer = issuer;
     }

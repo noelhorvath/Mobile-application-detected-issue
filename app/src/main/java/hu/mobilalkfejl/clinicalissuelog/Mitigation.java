@@ -5,15 +5,14 @@ import java.time.LocalDateTime;
 public class Mitigation {
     private String action;
     private LocalDateTime date;
-    private String author;
 
-    public Mitigation(String action, LocalDateTime date, String author) {
+    public Mitigation(String action, LocalDateTime date) {
         this.action = action;
         this.date = date;
-        this.author = author;
     }
 
-    public Mitigation(){}
+    public Mitigation() {
+    }
 
     public String getAction() {
         return action;
@@ -23,19 +22,11 @@ public class Mitigation {
         return date;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public void setAction(String action) {
         this.action = action;
     }
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 }

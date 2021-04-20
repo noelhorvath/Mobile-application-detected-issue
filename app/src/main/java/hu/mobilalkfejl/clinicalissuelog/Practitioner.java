@@ -9,8 +9,7 @@ public class Practitioner {
     Date birthDate;
     Qualification qualification;
 
-    public Practitioner(String id, boolean active, String gender, Date birthDate, Qualification qualification) {
-        this.id = id;
+    public Practitioner(boolean active, String gender, Date birthDate, Qualification qualification) {
         this.active = active;
         this.gender = gender;
         this.birthDate = birthDate;
