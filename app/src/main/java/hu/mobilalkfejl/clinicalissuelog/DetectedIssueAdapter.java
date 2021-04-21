@@ -103,7 +103,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             codeText.setText(currentDetectedIssue.getCode());
             statusText.setText(currentDetectedIssue.getStatus());
             severityText.setText(currentDetectedIssue.getSeverity());
-            identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-ddThh:mm:ss+zz:zz")));
+            identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().toString());
         }
     };
 
