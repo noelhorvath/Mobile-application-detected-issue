@@ -32,6 +32,38 @@ public class DetectedIssue {
         this.id = id;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public void setPatient(String patient) {
+        this.patient = patient;
+    }
+
+    public void setIdentifiedDateTime(LocalDate identifiedDateTime) {
+        this.identifiedDateTime = identifiedDateTime;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public void setMitigation(Mitigation[] mitigation) {
+        this.mitigation = mitigation;
+    }
+
     public String _getId() {
         return id;
     }
