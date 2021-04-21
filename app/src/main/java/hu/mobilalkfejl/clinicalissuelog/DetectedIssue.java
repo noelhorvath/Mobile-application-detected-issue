@@ -1,7 +1,6 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class DetectedIssue {
     private String id;
@@ -9,12 +8,12 @@ public class DetectedIssue {
     private String code;
     private String severity;
     private String patient;
-    private LocalDate identifiedDateTime;
+    private LocalDateTime identifiedDateTime;
     private String author;
     private String detail;
     private Mitigation[] mitigation;
 
-    public DetectedIssue(String status, String code, String severity, String patient, LocalDate identifiedDateTime, String author, String detail) {
+    public DetectedIssue(String status, String code, String severity, String patient, LocalDateTime identifiedDateTime, String author, String detail) {
         this.status = status;
         this.code = code;
         this.severity = severity;
@@ -25,7 +24,9 @@ public class DetectedIssue {
         this.mitigation = null;
     }
 
-    public DetectedIssue(){}
+    public DetectedIssue(){
+        this.mitigation = null;
+    }
 
 
     public void setId(String id) {
@@ -48,7 +49,7 @@ public class DetectedIssue {
         this.patient = patient;
     }
 
-    public void setIdentifiedDateTime(LocalDate identifiedDateTime) {
+    public void setIdentifiedDateTime(LocalDateTime identifiedDateTime) {
         this.identifiedDateTime = identifiedDateTime;
     }
 
@@ -84,7 +85,7 @@ public class DetectedIssue {
         return patient;
     }
 
-    public LocalDate getIdentifiedDateTime() {
+    public LocalDateTime getIdentifiedDateTime() {
         return identifiedDateTime;
     }
 
