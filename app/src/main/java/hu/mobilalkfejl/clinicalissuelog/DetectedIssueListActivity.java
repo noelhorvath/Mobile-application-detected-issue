@@ -50,9 +50,8 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
         if(detectedIssueList == null){
             emptyIssueList = findViewById(R.id.emptyIssuesText);
-            CharSequence charSequence = "You don't have any registered issues!\n" +
-                    "You can add a new issue in the top left corner!";
-            emptyIssueList.setText(charSequence);
+            String empty = "You don't have any registered issues!\n asd";
+            emptyIssueList.setText(empty);
         }else{
             recyclerView = findViewById(R.id.detectedIssuesRecyclerView);
             recyclerView.setLayoutManager(new GridLayoutManager(this,gridNumber));

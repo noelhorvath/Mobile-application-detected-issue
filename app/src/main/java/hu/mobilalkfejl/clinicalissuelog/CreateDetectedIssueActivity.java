@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,6 +24,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     final Calendar calendar = Calendar.getInstance();
 
@@ -64,7 +66,7 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
             }
         };
 
-        createDetectedIssueIdentifiedDateET.setOnClickListener(new View.OnClickListener() {
+        createDetectedIssueIdentifiedTimeET.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -104,13 +106,15 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
         String identifiedDate = createDetectedIssueIdentifiedDateET.toString();
         String identifiedTime = createDetectedIssueIdentifiedTimeET.toString();
 
-        LocalDate date = LocalDate.parse(identifiedDate);
-        LocalTime time = LocalTime.parse(identifiedTime);
-        LocalDateTime identifiedDateTime = LocalDateTime.of(date, time);
-
         if(patient.isEmpty() || code.isEmpty() || status.isEmpty() || detail.isEmpty() || severity.isEmpty() || identifiedDate.isEmpty() || identifiedTime.isEmpty()){
             Toast.makeText(this,"Issue form is incomplete!",Toast.LENGTH_LONG).show();
         }else{
+            LocalDate date = LocalDate.parse(identifiedDate);
+            LocalTime time = LocalTime.parse(identifiedTime);
+            LocalDateTime identifiedDateTime = LocalDateTime.of(date, time);
+
+            Log.d(LOG_TAG,"datetime: "+ identifiedDateTime.toString());
+
             DetectedIssue detectedIssue = new DetectedIssue();
             detectedIssue.setSeverity(severity);
             detectedIssue.setDetail(detail);
