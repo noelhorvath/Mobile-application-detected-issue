@@ -16,9 +16,28 @@
     <string name="no">No</string>
     <string name="active">Active:</string>
     <string name="gender">Gender</string>
+    <string name="patient_name_label">Patient:</string>
+    <string name="severity_label">Severity:</string>
+    <string name="code_label">Code:</string>
+    <string name="identified_label">Identified:</string>
+    <string name="new_issue">New issue</string>
+    <string name="search">Search</string>
+    <string name="logout">Logout</string>
+    <string name="add_new_detected_issue">Add new detected issue</string>
+    <string name="patient">Patient:</string>
+    <string name="status_label">Status:</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="gender_register">Gender:</string>
+    <string name="detail_label">Details:</string>
     <string-array name="gender">
         <item name="male">Male</item>
         <item name="female">Female</item>
         <item name="other">Other</item>
+    </string-array>
+    <string-array name="severity">
+        <item name="low">low</item>
+        <item name="moderate">moderate</item>
+        <item name="high">high</item>
     </string-array>
 </resources>
