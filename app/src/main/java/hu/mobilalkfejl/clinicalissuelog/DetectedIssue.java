@@ -1,5 +1,7 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
+import com.google.firebase.Timestamp;
+
 import java.time.LocalDateTime;
 
 public class DetectedIssue {
@@ -8,12 +10,12 @@ public class DetectedIssue {
     private String code;
     private String severity;
     private String patient;
-    private LocalDateTime identifiedDateTime;
+    private Timestamp identifiedDateTime;
     private String author;
     private String detail;
     private Mitigation[] mitigation;
 
-    public DetectedIssue(String status, String code, String severity, String patient, LocalDateTime identifiedDateTime, String author, String detail) {
+    public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, String author, String detail) {
         this.status = status;
         this.code = code;
         this.severity = severity;
@@ -49,7 +51,7 @@ public class DetectedIssue {
         this.patient = patient;
     }
 
-    public void setIdentifiedDateTime(LocalDateTime identifiedDateTime) {
+    public void setIdentifiedDateTime(Timestamp identifiedDateTime) {
         this.identifiedDateTime = identifiedDateTime;
     }
 
@@ -85,7 +87,7 @@ public class DetectedIssue {
         return patient;
     }
 
-    public LocalDateTime getIdentifiedDateTime() {
+    public Timestamp getIdentifiedDateTime() {
         return identifiedDateTime;
     }
 
