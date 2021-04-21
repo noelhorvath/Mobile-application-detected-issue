@@ -16,8 +16,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -27,12 +36,16 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
     private static String currentPractitonerEmail;
 
-    private ArrayList<DetectedIssue> detectedIssueList;
+
     private RecyclerView recyclerView;
     private DetectedIssueAdapter detectedIssueAdapter;
     private int gridNumber = 1;
 
     TextView emptyIssueList;
+    ArrayList<DetectedIssue> detectedIssueList;
+
+    FirebaseFirestore firestore;
+    CollectionReference detectedIssuesCollection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +54,40 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
         currentPractitonerEmail = this.getIntent().getExtras().get("currentPractitionerEmail").toString();
 
-        try {
-            detectedIssueList = new LoadDetectedIssueAsyncTask().execute(currentPractitonerEmail).get();
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        Log.d(LOG_TAG,"OnCreate");
+        detectedIssueList = new ArrayList<>();
 
-        if(detectedIssueList == null || detectedIssueList.isEmpty()){
-            emptyIssueList = findViewById(R.id.emptyIssuesText);
-            String empty = "You don't have any registered issues!";
-            emptyIssueList.setText(empty);
-        }else{
-            recyclerView = findViewById(R.id.detectedIssuesRecyclerView);
-            recyclerView.setLayoutManager(new GridLayoutManager(this,gridNumber));
-            detectedIssueAdapter = new DetectedIssueAdapter(this,detectedIssueList);
-            recyclerView.setAdapter(detectedIssueAdapter);
-        }
+        firestore = FirebaseFirestore.getInstance();
+        detectedIssuesCollection = firestore.collection("DetectedIssues");
 
+        recyclerView = findViewById(R.id.detectedIssuesRecyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this,gridNumber));
 
+        initializeDetectedIssuesForAdapter();
+
+    }
+
+    public void initializeDetectedIssuesForAdapter(){
+        detectedIssuesCollection.orderBy("code").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    detectedIssueList.add(document.toObject(DetectedIssue.class));
+                }
+                detectedIssueAdapter = new DetectedIssueAdapter(DetectedIssueListActivity.this,detectedIssueList);
+                recyclerView.setAdapter(detectedIssueAdapter);
+                detectedIssueAdapter.notifyDataSetChanged();
+
+                emptyIssueList = findViewById(R.id.detectedIssuesTitleText);
+
+                if(detectedIssueList == null || detectedIssueList.isEmpty()){
+                    String title = "You don't have any registered issues!";
+                    emptyIssueList.setText(title);
+                }else{
+                    String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
+                    emptyIssueList.setText(title);
+                }
+            }
+        });
     }
 
     @Override
