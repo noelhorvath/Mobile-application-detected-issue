@@ -25,7 +25,7 @@ import java.util.Locale;
 public class RegisterActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegisterActivity.class.getName();
     private static final String PREF_KEY = RegisterActivity.class.getPackage().toString();
-    private static final int SECRET_KEY = 696969;
+    //private static final int SECRET_KEY = 696969;
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 
@@ -140,5 +140,9 @@ public class RegisterActivity extends AppCompatActivity {
     private void updateLabel() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
         birthDateRegister.setText(simpleDateFormat.format(calendar.getTime()));
+    }
+
+    public void cancel(View view) {
+        finish();
     }
 }
