@@ -137,10 +137,60 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/createDetectedIssueDetailContainer"
+            android:id="@+id/createDetectedIssueIdentifiedDateTimeContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/createDetectedIssueSeverityContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/createDetectedIssueIdentifiedDateTimeLabel"
+                android:text="@string/identified_date"
+                android:textSize="20sp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/createDetectedIssueIdentifiedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="9"
+                    android:inputType="date"
+                    android:hint="@string/date"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:autofillHints="datetime"/>
+
+                <EditText
+                    android:id="@+id/createDetectedIssueIdentifiedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="9"
+                    android:inputType="time"
+                    android:hint="@string/time"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:autofillHints="datetime"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/createDetectedIssueDetailContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/createDetectedIssueIdentifiedDateTimeContainer"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp">
 
@@ -157,6 +207,7 @@
                 android:id="@+id/createDetectedIssueDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingBottom="200dp"
                 android:ems="12"
                 android:inputType="textMultiLine"
                 android:textSize="20sp"
