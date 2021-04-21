@@ -10,16 +10,23 @@
     tools:context=".DetectedIssueListActivity">
 
     <TextView
-        android:id="@+id/emptyIssuesText"
+        android:id="@+id/detectedIssuesTitleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detectedIssuesRecyclerView"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/detectedIssuesTitleText"
+        />
 
 </RelativeLayout>
