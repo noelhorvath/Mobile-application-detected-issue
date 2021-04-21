@@ -20,13 +20,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
-public class DetectedIssueListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<DetectedIssue>> {
+public class DetectedIssueListActivity extends AppCompatActivity {
     private static final String LOG_TAG = DetectedIssueListActivity.class.getName();
 
-    private FirebaseFirestore firestore;
     private static String currentPractitonerEmail;
-    private ArrayList<DetectedIssue> detectedIssues;
 
     private ArrayList<DetectedIssue> detectedIssueList;
     private RecyclerView recyclerView;
@@ -40,18 +39,19 @@ public class DetectedIssueListActivity extends AppCompatActivity implements Load
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detected_issue_list);
 
-        firestore = FirebaseFirestore.getInstance();
-
         currentPractitonerEmail = this.getIntent().getExtras().get("currentPractitionerEmail").toString();
 
-        Bundle bundle = new Bundle();
-        bundle.putString("email",currentPractitonerEmail);
-        getSupportLoaderManager().restartLoader(0, bundle, this);
+        try {
+            detectedIssueList = new LoadDetectedIssueAsyncTask().execute(currentPractitonerEmail).get();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
         Log.d(LOG_TAG,"OnCreate");
 
-        if(detectedIssues == null){
+        if(detectedIssueList == null){
             emptyIssueList = findViewById(R.id.emptyIssuesText);
-            CharSequence charSequence = "You don't have any registered issues!";
+            CharSequence charSequence = "You don't have any registered issues!\n" +
+                    "You can add a new issue in the top left corner!";
             emptyIssueList.setText(charSequence);
         }else{
             recyclerView = findViewById(R.id.detectedIssuesRecyclerView);
@@ -61,42 +61,12 @@ public class DetectedIssueListActivity extends AppCompatActivity implements Load
         }
 
 
-        initializeDate();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         Log.d(LOG_TAG,"OnStart");
-    }
-
-    public void initializeDate(){
-
-        //detectedIssueAdapter.notifyDataSetChanged();
-    }
-
-    @NonNull
-    @Override
-    public Loader<ArrayList<DetectedIssue>> onCreateLoader(int id, @Nullable Bundle args) {
-        Log.d(LOG_TAG,"Task created");
-        return new DetectedIssueLoaderAsyncTask(this,args.getString("email"));
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<DetectedIssue>> loader, ArrayList<DetectedIssue> data) {
-        if(data.isEmpty()){
-            Log.d(LOG_TAG,"List is empty");
-        }else{
-            detectedIssues = data;
-            for(DetectedIssue detectedIssue : data){
-                Log.d(LOG_TAG,"Issue: " + detectedIssue.getPatient());
-            }
-        }
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<DetectedIssue>> loader) {
-
     }
 
     @Override
@@ -117,6 +87,7 @@ public class DetectedIssueListActivity extends AppCompatActivity implements Load
 
             case R.id.createDetectedIssue:
                 Intent intent = new Intent(this,CreateDetectedIssueActivity.class);
+                intent.putExtra("currentPractitionerEmail",currentPractitonerEmail);
                 startActivity(intent);
                 return true;
 
