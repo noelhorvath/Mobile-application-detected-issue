@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,12 +16,19 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.type.DateTime;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -36,6 +44,8 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
     Spinner createDetectedIssueSeveritySpinner;
     EditText createDetectedIssueIdentifiedDateET;
     EditText createDetectedIssueIdentifiedTimeET;
+
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +72,7 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-                createDetectedIssueIdentifiedTimeET.setText(new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
+                createDetectedIssueIdentifiedTimeET.setText(new SimpleDateFormat("HH:mm", Locale.ENGLISH).format(calendar.getTime()));
             }
         };
 
@@ -84,10 +94,6 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
             }
         });
 
-
-
-
-
         currentPractitionerEmail = this.getIntent().getStringExtra("currentPractitionerEmail");
 
         createDetectedIssueSeveritySpinner.setOnItemSelectedListener(this);
@@ -95,6 +101,10 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                 R.array.severity, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         createDetectedIssueSeveritySpinner.setAdapter(adapter);
+
+        firestore = FirebaseFirestore.getInstance();
+
+        Log.d(LOG_TAG,"onCreate");
     }
 
     public void addDetectedIssue(View view) {
@@ -109,26 +119,20 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
         if(patient.isEmpty() || code.isEmpty() || status.isEmpty() || detail.isEmpty() || severity.isEmpty() || identifiedDate.isEmpty() || identifiedTime.isEmpty()){
             Toast.makeText(this,"Issue form is incomplete!",Toast.LENGTH_LONG).show();
         }else{
-            LocalDate date = LocalDate.parse(identifiedDate);
-            LocalTime time = LocalTime.parse(identifiedTime);
-            LocalDateTime identifiedDateTime = LocalDateTime.of(date, time);
-
-            Log.d(LOG_TAG,"datetime: "+ identifiedDateTime.toString());
+            Log.d(LOG_TAG,"Start of addDetectedIssue");
 
             DetectedIssue detectedIssue = new DetectedIssue();
             detectedIssue.setSeverity(severity);
             detectedIssue.setDetail(detail);
             detectedIssue.setCode(code);
             detectedIssue.setPatient(patient);
-            detectedIssue.setIdentifiedDateTime(identifiedDateTime);
             detectedIssue.setStatus(status);
-            new AddDetectedIssueAsyncTask(currentPractitionerEmail).execute();
+            addDetectedIssue(detectedIssue);
         }
     }
 
-    private void updateLabelDate(String format, EditText editText, String mode) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.ENGLISH);
-        editText.setText(simpleDateFormat.format(calendar.getTime()));
+    public void addDetectedIssue(DetectedIssue detectedIssue){
+        firestore.collection("DetectedIssues").add(detectedIssue);
     }
 
     public void cancel(View view) {
