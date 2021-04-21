@@ -121,11 +121,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
                         Practitioner practitioner = null;
                         try {
-                            practitioner = new Practitioner(name,active,gender, dateFormat.parse(birthDate), qualification);
+                            practitioner = new Practitioner(email, name, active, gender, dateFormat.parse(birthDate), qualification);
                         } catch (ParseException e) {
                             Toast.makeText(RegisterActivity.this,"Wrong date format!",Toast.LENGTH_LONG).show();
                         }
-                        mFirestore.collection("Practitioners").document(email).set(practitioner);
+                        mFirestore.collection("Practitioners").add(practitioner);
                         afterRegistration(email);
                     }else{
                              Log.d(LOG_TAG, "Practitioner creation failed!");

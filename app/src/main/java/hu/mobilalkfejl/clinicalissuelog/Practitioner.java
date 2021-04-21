@@ -10,7 +10,8 @@ public class Practitioner {
     Date birthDate;
     Qualification qualification;
 
-    public Practitioner(String name, boolean active, String gender, Date birthDate, Qualification qualification) {
+    public Practitioner(String id, String name, boolean active, String gender, Date birthDate, Qualification qualification) {
+        this.id = id;
         this.name = name;
         this.active = active;
         this.gender = gender;
@@ -20,7 +21,7 @@ public class Practitioner {
 
     public Practitioner(){}
 
-    public String _getId() {
+    public String getId() {
         return id;
     }
 
