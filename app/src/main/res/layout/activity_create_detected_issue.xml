@@ -215,7 +215,6 @@
                 android:ems="12"
                 android:inputType="textMultiLine"
                 android:textSize="20sp"
-                android:textAlignment="center"
                 android:autofillHints="detail" />
 
         </LinearLayout>

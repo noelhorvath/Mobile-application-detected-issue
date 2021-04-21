@@ -48,9 +48,9 @@ public class DetectedIssueListActivity extends AppCompatActivity {
         }
         Log.d(LOG_TAG,"OnCreate");
 
-        if(detectedIssueList == null){
+        if(detectedIssueList == null || detectedIssueList.isEmpty()){
             emptyIssueList = findViewById(R.id.emptyIssuesText);
-            String empty = "You don't have any registered issues!\n asd";
+            String empty = "You don't have any registered issues!";
             emptyIssueList.setText(empty);
         }else{
             recyclerView = findViewById(R.id.detectedIssuesRecyclerView);

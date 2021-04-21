@@ -62,11 +62,11 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
-                createDetectedIssueIdentifiedDateET.setText(new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
+                createDetectedIssueIdentifiedTimeET.setText(new SimpleDateFormat("hh:mm:ss", Locale.ENGLISH).format(calendar.getTime()));
             }
         };
 
-        createDetectedIssueIdentifiedTimeET.setOnClickListener(new View.OnClickListener() {
+        createDetectedIssueIdentifiedDateET.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
