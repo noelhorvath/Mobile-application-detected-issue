@@ -1,6 +1,7 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,30 +15,25 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 
-public class DetectedIssueLoaderAsyncTask extends AsyncTaskLoader<ArrayList<DetectedIssue>> {
+public class LoadDetectedIssueAsyncTask extends AsyncTask<String,String,ArrayList<DetectedIssue>> {
     private ArrayList<DetectedIssue> detectedIssues;
     private String currentPractitionerEmail;
     private FirebaseFirestore firestore;
 
-    public DetectedIssueLoaderAsyncTask(@NonNull Context context,String currentPractitionerEmail) {
-        super(context);
-        this.currentPractitionerEmail = currentPractitionerEmail;
+    public LoadDetectedIssueAsyncTask() {
         this.detectedIssues = new ArrayList<>();
         this.firestore = FirebaseFirestore.getInstance();
     }
 
     @Override
-    protected void onStartLoading() {
-        super.onStartLoading();
-        forceLoad();
+    protected void onPreExecute() {
+        super.onPreExecute();
     }
 
-    @Nullable
     @Override
-    public ArrayList<DetectedIssue> loadInBackground() {
-
+    protected ArrayList<DetectedIssue> doInBackground(String... strings) {
         try {
-            firestore.collection("Practitioners").document(currentPractitionerEmail).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            firestore.collection("Practitioners").document(strings[0]).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     firestore.collection("DetectedIssues").whereEqualTo("author", documentSnapshot.getString("name")).orderBy("identifiedDateTime").get().addOnSuccessListener(queryDocumentSnapshots -> {
@@ -54,4 +50,10 @@ public class DetectedIssueLoaderAsyncTask extends AsyncTaskLoader<ArrayList<Dete
         }
         return detectedIssues;
     }
+
+    @Override
+    protected void onPostExecute(ArrayList<DetectedIssue> detectedIssues) {
+        super.onPostExecute(detectedIssues);
+    }
 }
+
