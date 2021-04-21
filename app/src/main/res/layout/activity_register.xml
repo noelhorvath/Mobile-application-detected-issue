@@ -19,25 +19,32 @@
             android:textSize="30sp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp"
             />
 
         <EditText
             android:id="@+id/editTextPractitionerName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/full_name"
-            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/textRegisterTitle"
+            android:layout_marginTop="5dp"
             android:autofillHints="name"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
+            android:hint="@string/full_name"
             android:inputType="textPersonName"
-            android:layout_below="@+id/textRegisterTitle"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/editTextPractitionerBirthDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/birth_date"
             android:textSize="20sp"
             android:autofillHints="birthDate"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
             android:inputType="datetime"
             android:clickable="false"
             android:focusable="false"
@@ -47,48 +54,74 @@
 
         <EditText
             android:id="@+id/editTextPractitionerEmail"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:textSize="20sp"
             android:autofillHints="email"
             android:inputType="textEmailAddress"
-            android:layout_below="@id/editTextPractitionerBirthDate"/>
+            android:ems="15"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/spinnerGenderContainer"/>
 
         <EditText
             android:id="@+id/editTextPractitionerPassword"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:textSize="20sp"
             android:autofillHints="password"
             android:inputType="textPassword"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/editTextPractitionerEmail" />
 
         <EditText
             android:id="@+id/editTextPractitionerPasswordAgain"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/password_again"
             android:textSize="20sp"
             android:autofillHints="password"
             android:inputType="textPassword"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/editTextPractitionerPassword"/>
 
-
-        <Spinner
-            android:id="@+id/spinnerGender"
+        <LinearLayout
+            android:id="@+id/spinnerGenderContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/gender"
-            android:layout_below="@id/editTextPractitionerPasswordAgain"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_below="@id/editTextPractitionerBirthDate"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender_register"
+                android:textSize="20sp"
+                android:labelFor="@id/spinnerGender"
+                />
+
+            <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/gender"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
 
         <RadioGroup
             android:id="@+id/radioGroupActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerGender"
-            android:orientation="horizontal">
+            android:layout_below="@+id/editTextPractitionerPasswordAgain"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:id="@+id/textActiveLabel"
@@ -117,33 +150,55 @@
 
         <EditText
             android:id="@+id/editTextPractitionerQualificationCode"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/qualification_code"
             android:textSize="20sp"
             android:autofillHints="qualificationCode"
             android:inputType="text"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/radioGroupActive"/>
 
         <EditText
             android:id="@+id/editTextPractitionerQualificationIssuer"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/qualification_issuer"
             android:textSize="20sp"
             android:autofillHints="qualificationIssuer"
             android:inputType="text"
+            android:ems="15"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/editTextPractitionerQualificationCode"/>
 
-        <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
             android:layout_below="@id/editTextPractitionerQualificationIssuer"
-            android:onClick="doRegistration"
-            />
+            >
 
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:onClick="doRegistration"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:onClick="cancel"
+                />
+
+        </LinearLayout>
     </RelativeLayout>
-
 </ScrollView>
