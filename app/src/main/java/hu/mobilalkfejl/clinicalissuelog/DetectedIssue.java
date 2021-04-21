@@ -13,7 +13,6 @@ public class DetectedIssue {
     private Timestamp identifiedDateTime;
     private String author;
     private String detail;
-    private Mitigation[] mitigation;
 
     public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, String author, String detail) {
         this.status = status;
@@ -23,11 +22,9 @@ public class DetectedIssue {
         this.identifiedDateTime = identifiedDateTime;
         this.author = author;
         this.detail = detail;
-        this.mitigation = null;
     }
 
     public DetectedIssue(){
-        this.mitigation = null;
     }
 
 
@@ -63,10 +60,6 @@ public class DetectedIssue {
         this.detail = detail;
     }
 
-    public void setMitigation(Mitigation[] mitigation) {
-        this.mitigation = mitigation;
-    }
-
     public String _getId() {
         return id;
     }
@@ -99,7 +92,4 @@ public class DetectedIssue {
         return detail;
     }
 
-    public Mitigation[] getMitigation() {
-        return mitigation;
-    }
 }
