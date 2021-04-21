@@ -30,6 +30,9 @@
     <string name="cancel">Cancel</string>
     <string name="gender_register">Gender:</string>
     <string name="detail_label">Details:</string>
+    <string name="identified_date">Identified date:</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
     <string-array name="gender">
         <item name="male">Male</item>
         <item name="female">Female</item>
