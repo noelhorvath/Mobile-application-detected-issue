@@ -169,7 +169,9 @@
                     android:hint="@string/date"
                     android:textSize="20sp"
                     android:textAlignment="center"
-                    android:autofillHints="datetime"/>
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <EditText
                     android:id="@+id/createDetectedIssueIdentifiedTime"
@@ -180,7 +182,9 @@
                     android:hint="@string/time"
                     android:textSize="20sp"
                     android:textAlignment="center"
-                    android:autofillHints="datetime"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
 
             </LinearLayout>
