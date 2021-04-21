@@ -9,6 +9,13 @@
     android:paddingTop="20dp"
     tools:context=".DetectedIssueListActivity">
 
+    <TextView
+        android:id="@+id/emptyIssuesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detectedIssuesRecyclerView"
         android:scrollbars="vertical"
