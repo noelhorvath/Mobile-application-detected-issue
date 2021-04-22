@@ -1,5 +1,6 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Context;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdapter.ViewHolder> implements Filterable {
     private ArrayList<DetectedIssue> detectedIssueData;
     private ArrayList<DetectedIssue> detectedIssueDataAll;
-    private Context context;
+    private final Context context;
 
     DetectedIssueAdapter(Context context, ArrayList<DetectedIssue> issuesData){
         this.context = context;
@@ -39,6 +40,9 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
 
     @Override
     public int getItemCount() {
+        if(detectedIssueData == null){
+            return 0;
+        }
         return detectedIssueData.size();
     }
 
@@ -96,6 +100,14 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             statusText = itemView.findViewById(R.id.textIssueStatus);
             severityText = itemView.findViewById(R.id.textIssueSeverity);
             identifiedDateTimeText = itemView.findViewById(R.id.textIssueIdentifiedDateTime);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context,ViewDetectedIssue.class);
+                    context.startActivity(intent);
+                }
+            });
         }
 
         public void bindTo(DetectedIssue currentDetectedIssue){
@@ -105,6 +117,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             severityText.setText(currentDetectedIssue.getSeverity());
             identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().toString());
         }
+
     };
 
 }
