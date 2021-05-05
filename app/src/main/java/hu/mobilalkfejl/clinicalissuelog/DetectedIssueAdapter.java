@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -115,7 +116,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             codeText.setText(currentDetectedIssue.getCode());
             statusText.setText(currentDetectedIssue.getStatus());
             severityText.setText(currentDetectedIssue.getSeverity());
-            identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().toString());
+            identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().toDate().toInstant().toString().replace("Z"," ").replace("T", " "));
         }
 
     };
