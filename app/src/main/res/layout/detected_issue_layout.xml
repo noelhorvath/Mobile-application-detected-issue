@@ -30,7 +30,8 @@
                 android:textColor="@color/cardview_light_background"
                 android:textSize="18sp"
                 android:textAllCaps="true"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginEnd="5dp"/>
 
             <TextView
                 android:id="@+id/textIssuePatientName"
@@ -61,6 +62,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
                 android:labelFor="@id/textIssueCode"
+                android:layout_marginEnd="5dp"
                 />
 
             <TextView
@@ -92,6 +94,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
                 android:labelFor="@id/textIssueStatus"
+                android:layout_marginEnd="5dp"
                 />
 
             <TextView
@@ -123,6 +126,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/cardview_light_background"
                 android:labelFor="@id/textIssueSeverity"
+                android:layout_marginEnd="5dp"
                 />
 
             <TextView
@@ -153,6 +157,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textAllCaps="true"
+                android:layout_marginEnd="5dp"
                 android:textColor="@color/cardview_light_background"
                 android:labelFor="@id/textIssueIdentifiedDateTime"
                 />
