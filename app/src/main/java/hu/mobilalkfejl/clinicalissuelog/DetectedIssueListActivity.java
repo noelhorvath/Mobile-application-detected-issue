@@ -2,6 +2,7 @@ package hu.mobilalkfejl.clinicalissuelog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,16 +12,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class DetectedIssueListActivity extends AppCompatActivity {
     private static final String LOG_TAG = DetectedIssueListActivity.class.getName();
@@ -58,7 +67,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     }
 
     public void initializeDetectedIssuesForAdapter(){
-        detectedIssuesCollection.orderBy("code").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        detectedIssuesCollection.orderBy("identifiedDateTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
@@ -89,7 +98,22 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.detected_issue_list_menu,menu);
+        MenuItem menuItem = menu.findItem(R.id.search_bar);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchValue) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchValue) {
+                detectedIssueAdapter.getFilter().filter(searchValue);
+                return false;
+            }
+        });
         return true;
     }
 
