@@ -23,9 +23,12 @@ import com.google.type.DateTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,7 +36,7 @@ import java.util.Locale;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
-    private static final String DATE_FORMAT = "yyyy-MM-dd";
+    private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
     final Calendar calendar = Calendar.getInstance();
 
     String currentPractitionerEmail;
@@ -107,19 +110,19 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
         Log.d(LOG_TAG,"onCreate");
     }
 
-    public void addDetectedIssue(View view) {
+    public void createDetectedIssue(View view) {
         String patient = createDetectedIssuePatientET.getText().toString();
         String code = createDetectedIssueCodeET.getText().toString();
         String status = createDetectedIssueStatusET.getText().toString();
         String detail = createDetectedIssueDetailET.getText().toString();
         String severity = createDetectedIssueSeveritySpinner.getSelectedItem().toString();
-        String identifiedDate = createDetectedIssueIdentifiedDateET.toString();
-        String identifiedTime = createDetectedIssueIdentifiedTimeET.toString();
+        String identifiedDate = createDetectedIssueIdentifiedDateET.getText().toString();
+        String identifiedTime = createDetectedIssueIdentifiedTimeET.getText().toString();
 
         if(patient.isEmpty() || code.isEmpty() || status.isEmpty() || detail.isEmpty() || severity.isEmpty() || identifiedDate.isEmpty() || identifiedTime.isEmpty()){
             Toast.makeText(this,"Issue form is incomplete!",Toast.LENGTH_LONG).show();
         }else{
-            Log.d(LOG_TAG,"Start of addDetectedIssue");
+            LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse(identifiedDate),LocalTime.parse(identifiedTime));
 
             DetectedIssue detectedIssue = new DetectedIssue();
             detectedIssue.setSeverity(severity);
@@ -127,12 +130,16 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
             detectedIssue.setCode(code);
             detectedIssue.setPatient(patient);
             detectedIssue.setStatus(status);
-            addDetectedIssue(detectedIssue);
+            detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(ZoneOffset.UTC))));
+
+            new CreateDetectedIssueAsyncTask(firestore).execute(detectedIssue);
+            backToDetectedIssuesListActivity();
         }
     }
 
-    public void addDetectedIssue(DetectedIssue detectedIssue){
-        firestore.collection("DetectedIssues").add(detectedIssue);
+    public void backToDetectedIssuesListActivity(){
+        Intent intent = new Intent(this,DetectedIssueListActivity.class);
+        startActivity(intent);
     }
 
     public void cancel(View view) {
