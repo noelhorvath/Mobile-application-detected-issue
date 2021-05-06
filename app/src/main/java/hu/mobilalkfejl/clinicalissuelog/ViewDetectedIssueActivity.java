@@ -15,7 +15,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-public class ViewDetectedIssue extends AppCompatActivity {
+public class ViewDetectedIssueActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private String detectedIssueId;
@@ -63,7 +63,7 @@ public class ViewDetectedIssue extends AppCompatActivity {
         });
 
         try{
-            Thread.sleep(60);
+            Thread.sleep(240);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
