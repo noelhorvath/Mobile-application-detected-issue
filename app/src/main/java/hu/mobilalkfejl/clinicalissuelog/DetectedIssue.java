@@ -12,10 +12,10 @@ public class DetectedIssue {
     private String severity;
     private String patient;
     private Timestamp identifiedDateTime;
-    private String author;
+    private Practitioner author;
     private String detail;
 
-    public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, String author, String detail) {
+    public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, Practitioner author, String detail) {
         this.status = status;
         this.code = code;
         this.severity = severity;
@@ -50,7 +50,7 @@ public class DetectedIssue {
         this.identifiedDateTime = identifiedDateTime;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Practitioner author) {
         this.author = author;
     }
 
@@ -80,7 +80,7 @@ public class DetectedIssue {
         return identifiedDateTime;
     }
 
-    public String getAuthor() {
+    public Practitioner getAuthor() {
         return author;
     }
 
