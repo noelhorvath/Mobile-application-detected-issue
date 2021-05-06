@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ClinicalIssueLog">
-        <activity android:name=".ViewDetectedIssue"></activity>
+        <activity android:name=".EditDetectedIssueActivity"></activity>
+        <activity android:name=".ViewDetectedIssueActivity" />
         <activity android:name=".CreateDetectedIssueActivity" />
         <activity android:name=".DetectedIssueListActivity" />
         <activity android:name=".RegisterActivity" />
