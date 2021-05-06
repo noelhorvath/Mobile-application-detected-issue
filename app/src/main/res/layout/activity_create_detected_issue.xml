@@ -146,7 +146,7 @@
 
             <TextView
                 android:id="@+id/createDetectedIssueIdentifiedDateTimeLabel"
-                android:text="@string/identified_date"
+                android:text="@string/identified_datetime"
                 android:textSize="20sp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
