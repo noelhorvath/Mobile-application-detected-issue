@@ -2,6 +2,7 @@ package hu.mobilalkfejl.clinicalissuelog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -38,7 +39,6 @@ import java.util.Locale;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
-    private static final String DATETIME_FORMAT = "yyyy-MM-dd HH:mm";
     final Calendar calendar = Calendar.getInstance();
 
     String currentPractitionerEmail;
@@ -137,16 +137,18 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                     detectedIssue.setStatus(status);
                     detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(ZoneOffset.UTC))));
                     detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
-                    new CreateDetectedIssueAsyncTask(firestore).execute(detectedIssue);
+                    new CreateDetectedIssueAsyncTask().execute(detectedIssue);
                     backToDetectedIssuesListActivity();
                 }
             });
+            Toast.makeText(this,"New detected issue has been created!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void backToDetectedIssuesListActivity(){
-        Intent intent = new Intent(this,DetectedIssueListActivity.class);
-        startActivity(intent);
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 
     public void cancel(View view) {
