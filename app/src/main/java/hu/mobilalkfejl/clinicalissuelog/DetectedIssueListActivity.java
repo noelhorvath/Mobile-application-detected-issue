@@ -1,14 +1,17 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +43,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DetectedIssueAdapter detectedIssueAdapter;
     private int gridNumber = 1;
+    private int intentRequestCode = 1;
 
     TextView emptyIssueList;
     ArrayList<DetectedIssue> detectedIssueList;
@@ -67,25 +71,33 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     }
 
     public void initializeDetectedIssuesForAdapter(){
-        detectedIssuesCollection.orderBy("identifiedDateTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        firestore.collection("Practitioners").whereEqualTo("id",currentPractitionerEmail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                    detectedIssueList.add(document.toObject(DetectedIssue.class));
-                }
-                detectedIssueAdapter = new DetectedIssueAdapter(DetectedIssueListActivity.this,detectedIssueList);
-                recyclerView.setAdapter(detectedIssueAdapter);
-                detectedIssueAdapter.notifyDataSetChanged();
+                Practitioner practitioner = queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class);
+                detectedIssuesCollection.whereEqualTo("author",practitioner).orderBy("identifiedDateTime").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            DetectedIssue detectedIssue = document.toObject(DetectedIssue.class);
+                            detectedIssue.setId(document.getId());
+                            detectedIssueList.add(detectedIssue);
+                        }
+                        detectedIssueAdapter = new DetectedIssueAdapter(DetectedIssueListActivity.this,detectedIssueList);
+                        recyclerView.setAdapter(detectedIssueAdapter);
+                        detectedIssueAdapter.notifyDataSetChanged();
 
-                emptyIssueList = findViewById(R.id.detectedIssuesTitleText);
+                        emptyIssueList = findViewById(R.id.detectedIssuesTitleText);
 
-                if(detectedIssueList == null || detectedIssueList.isEmpty()){
-                    String title = "You don't have any registered issues!";
-                    emptyIssueList.setText(title);
-                }else{
-                    String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
-                    emptyIssueList.setText(title);
-                }
+                        if(detectedIssueList == null || detectedIssueList.isEmpty()){
+                            String title = "You don't have any registered issues!";
+                            emptyIssueList.setText(title);
+                        }else{
+                            String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
+                            emptyIssueList.setText(title);
+                        }
+                    }
+                });
             }
         });
     }
@@ -111,8 +123,12 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String searchValue) {
                 detectedIssueAdapter.getFilter().filter(searchValue);
+                //String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
+                //emptyIssueList.setText(title);
+                // TODO: fix item count
                 return false;
             }
+
         });
         return true;
     }
@@ -130,7 +146,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             case R.id.createDetectedIssue:
                 Intent intent = new Intent(this,CreateDetectedIssueActivity.class);
                 intent.putExtra("currentPractitionerEmail",currentPractitionerEmail);
-                startActivity(intent);
+                startActivityForResult(intent, intentRequestCode);
                 return true;
 
             default:
@@ -138,10 +154,19 @@ public class DetectedIssueListActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+               System.out.println("asd");
+            }
+        }
     }
 }
