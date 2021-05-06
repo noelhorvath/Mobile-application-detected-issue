@@ -12,8 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdapter.ViewHolder> implements Filterable {
@@ -105,7 +103,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context,ViewDetectedIssue.class);
+                    Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
                     intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
                     context.startActivity(intent);
                 }
