@@ -6,6 +6,7 @@ import java.sql.Time;
 import java.time.LocalDateTime;
 
 public class DetectedIssue {
+    private String id;
     private String status;
     private String code;
     private String severity;
@@ -26,6 +27,8 @@ public class DetectedIssue {
 
     public DetectedIssue(){
     }
+
+    public void setId(String id) { this.id = id; }
 
     public void setStatus(String status) {
         this.status = status;
@@ -54,6 +57,8 @@ public class DetectedIssue {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
+    public String _getId() { return id; }
 
     public String getStatus() {
         return status;
