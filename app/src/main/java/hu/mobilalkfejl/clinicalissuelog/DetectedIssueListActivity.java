@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -43,7 +44,8 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DetectedIssueAdapter detectedIssueAdapter;
     private int gridNumber = 1;
-    private int intentRequestCode = 1;
+    private static final int CREATE_ACTIVITY_CODE = 1;
+    private boolean reloadNeeded;
 
     TextView emptyIssueList;
     ArrayList<DetectedIssue> detectedIssueList;
@@ -56,18 +58,31 @@ public class DetectedIssueListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detected_issue_list);
 
+        firestore = FirebaseFirestore.getInstance();
+        detectedIssuesCollection = firestore.collection("DetectedIssues");
+
         currentPractitionerEmail = this.getIntent().getExtras().get("currentPractitionerEmail").toString();
 
         detectedIssueList = new ArrayList<>();
 
-        firestore = FirebaseFirestore.getInstance();
-        detectedIssuesCollection = firestore.collection("DetectedIssues");
-
+        detectedIssueAdapter = new DetectedIssueAdapter(DetectedIssueListActivity.this,detectedIssueList);
         recyclerView = findViewById(R.id.detectedIssuesRecyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this,gridNumber));
+        recyclerView.setAdapter(detectedIssueAdapter);
+
+        emptyIssueList = findViewById(R.id.detectedIssuesTitleText);
 
         initializeDetectedIssuesForAdapter();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try{
+            Thread.sleep(120);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
     public void initializeDetectedIssuesForAdapter(){
@@ -75,7 +90,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 Practitioner practitioner = queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class);
-                detectedIssuesCollection.whereEqualTo("author",practitioner).orderBy("identifiedDateTime").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                firestore.collection("DetectedIssues").whereEqualTo("author",practitioner).orderBy("identifiedDateTime", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
@@ -83,29 +98,23 @@ public class DetectedIssueListActivity extends AppCompatActivity {
                             detectedIssue.setId(document.getId());
                             detectedIssueList.add(detectedIssue);
                         }
-                        detectedIssueAdapter = new DetectedIssueAdapter(DetectedIssueListActivity.this,detectedIssueList);
-                        recyclerView.setAdapter(detectedIssueAdapter);
                         detectedIssueAdapter.notifyDataSetChanged();
-
-                        emptyIssueList = findViewById(R.id.detectedIssuesTitleText);
-
-                        if(detectedIssueList == null || detectedIssueList.isEmpty()){
-                            String title = "You don't have any registered issues!";
-                            emptyIssueList.setText(title);
-                        }else{
-                            String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
-                            emptyIssueList.setText(title);
-                        }
+                        setDetectedIssueCounter(detectedIssueList);
                     }
                 });
             }
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(LOG_TAG,"OnStart");
+    public void setDetectedIssueCounter(ArrayList<DetectedIssue> list){
+        String title;
+        if(list == null || list.isEmpty()){
+            title = "You don't have any registered issues!";
+            emptyIssueList.setText(title);
+        }else{
+            title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
+        }
+        emptyIssueList.setText(title);
     }
 
     @Override
@@ -123,9 +132,6 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String searchValue) {
                 detectedIssueAdapter.getFilter().filter(searchValue);
-                //String title = "Current number of issues: " + detectedIssueAdapter.getItemCount();
-                //emptyIssueList.setText(title);
-                // TODO: fix item count
                 return false;
             }
 
@@ -146,7 +152,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             case R.id.createDetectedIssue:
                 Intent intent = new Intent(this,CreateDetectedIssueActivity.class);
                 intent.putExtra("currentPractitionerEmail",currentPractitionerEmail);
-                startActivityForResult(intent, intentRequestCode);
+                startActivityForResult(intent, CREATE_ACTIVITY_CODE);
                 return true;
 
             default:
@@ -165,8 +171,19 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-               System.out.println("asd");
+                reloadNeeded = true;
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(reloadNeeded){
+            Log.d(LOG_TAG, String.valueOf(detectedIssueList.isEmpty()));
+            detectedIssueList.clear();
+            initializeDetectedIssuesForAdapter();
+            reloadNeeded = false;
         }
     }
 }
