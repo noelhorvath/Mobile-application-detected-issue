@@ -12,16 +12,14 @@ public class DetectedIssue {
     private String severity;
     private String patient;
     private Timestamp identifiedDateTime;
-    private String author;
     private String detail;
 
-    public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, String author, String detail) {
+    public DetectedIssue(String status, String code, String severity, String patient, Timestamp identifiedDateTime, String detail) {
         this.status = status;
         this.code = code;
         this.severity = severity;
         this.patient = patient;
         this.identifiedDateTime = identifiedDateTime;
-        this.author = author;
         this.detail = detail;
     }
 
@@ -50,10 +48,6 @@ public class DetectedIssue {
         this.identifiedDateTime = identifiedDateTime;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public void setDetail(String detail) {
         this.detail = detail;
     }
@@ -78,10 +72,6 @@ public class DetectedIssue {
 
     public Timestamp getIdentifiedDateTime() {
         return identifiedDateTime;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public String getDetail() {
