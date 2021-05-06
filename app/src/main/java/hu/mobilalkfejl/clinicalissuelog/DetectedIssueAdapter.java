@@ -106,6 +106,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context,ViewDetectedIssue.class);
+                    intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
                     context.startActivity(intent);
                 }
             });
