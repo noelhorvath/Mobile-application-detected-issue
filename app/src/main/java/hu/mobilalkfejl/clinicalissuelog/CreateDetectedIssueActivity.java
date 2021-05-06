@@ -16,8 +16,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.type.DateTime;
 
 import java.text.ParseException;
@@ -124,16 +126,21 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
         }else{
             LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse(identifiedDate),LocalTime.parse(identifiedTime));
 
-            DetectedIssue detectedIssue = new DetectedIssue();
-            detectedIssue.setSeverity(severity);
-            detectedIssue.setDetail(detail);
-            detectedIssue.setCode(code);
-            detectedIssue.setPatient(patient);
-            detectedIssue.setStatus(status);
-            detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(ZoneOffset.UTC))));
-
-            new CreateDetectedIssueAsyncTask(firestore).execute(detectedIssue);
-            backToDetectedIssuesListActivity();
+            firestore.collection("Practitioners").whereEqualTo("id",currentPractitionerEmail).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    DetectedIssue detectedIssue = new DetectedIssue();
+                    detectedIssue.setSeverity(severity);
+                    detectedIssue.setDetail(detail);
+                    detectedIssue.setCode(code);
+                    detectedIssue.setPatient(patient);
+                    detectedIssue.setStatus(status);
+                    detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(ZoneOffset.UTC))));
+                    detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
+                    new CreateDetectedIssueAsyncTask(firestore).execute(detectedIssue);
+                    backToDetectedIssuesListActivity();
+                }
+            });
         }
     }
 
