@@ -186,7 +186,7 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
                             "detail",detectedIssue.getDetail(),
                             "patient",detectedIssue.getPatient());
 
-            notificationHandler.sendAfterUpdate("A " + detectedIssue.getPatient() + "'s detected issue has been successfully updated!");
+            notificationHandler.sendAfterUpdate(detectedIssue.getPatient() + "'s detected issue has been successfully updated!");
 
             backToViewDetectedIssuesActivity();
         }

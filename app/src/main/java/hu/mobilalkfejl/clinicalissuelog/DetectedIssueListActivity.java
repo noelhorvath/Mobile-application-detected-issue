@@ -53,10 +53,14 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     CollectionReference detectedIssuesCollection;
 
+    NotificationHandler notificationHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detected_issue_list);
+
+        notificationHandler = new NotificationHandler(this);
 
         firestore = FirebaseFirestore.getInstance();
         detectedIssuesCollection = firestore.collection("DetectedIssues");
@@ -185,5 +189,13 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             initializeDetectedIssuesForAdapter();
             reloadNeeded = false;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        notificationHandler.cancelCreateNotification();
+        notificationHandler.cancelDeleteNotification();
+        notificationHandler.cancelUpdateNotification();
     }
 }

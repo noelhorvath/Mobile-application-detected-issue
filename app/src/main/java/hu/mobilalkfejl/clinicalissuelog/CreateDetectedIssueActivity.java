@@ -146,7 +146,7 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                     detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
                     firestore.collection("DetectedIssues").add(detectedIssue);
 
-                    notificationHandler.sendAfterCreate("New" + detectedIssue.getPatient() + "'s detected issue has been successfully created!");
+                    notificationHandler.sendAfterCreate("New detected issue for " + detectedIssue.getPatient() + " has been successfully created!");
 
                     backToDetectedIssuesListActivity();
                 }
