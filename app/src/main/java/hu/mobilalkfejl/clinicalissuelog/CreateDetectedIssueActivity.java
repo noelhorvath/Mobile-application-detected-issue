@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.type.DateTime;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
@@ -30,12 +31,14 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
@@ -135,7 +138,7 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                     detectedIssue.setCode(code);
                     detectedIssue.setPatient(patient);
                     detectedIssue.setStatus(status);
-                    detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(ZoneOffset.UTC))));
+                    detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(OffsetDateTime.now().getOffset()))));
                     detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
                     new CreateDetectedIssueAsyncTask().execute(detectedIssue);
                     backToDetectedIssuesListActivity();

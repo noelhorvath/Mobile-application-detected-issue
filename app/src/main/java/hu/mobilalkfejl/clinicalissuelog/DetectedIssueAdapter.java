@@ -1,5 +1,6 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdapter.ViewHolder> implements Filterable {
@@ -105,7 +111,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
                     intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
-                    context.startActivity(intent);
+                    ((Activity) context).startActivityForResult(intent, 1);
                 }
             });
         }
@@ -115,7 +121,8 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             codeText.setText(currentDetectedIssue.getCode());
             statusText.setText(currentDetectedIssue.getStatus());
             severityText.setText(currentDetectedIssue.getSeverity());
-            identifiedDateTimeText.setText(currentDetectedIssue.getIdentifiedDateTime().toDate().toInstant().toString().replace("Z"," ").replace("T", " "));
+            Instant instant = currentDetectedIssue.getIdentifiedDateTime().toDate().toInstant();
+            identifiedDateTimeText.setText(LocalDateTime.ofInstant(instant,ZoneId.systemDefault()).toString().replace("T"," "));
         }
 
     };
