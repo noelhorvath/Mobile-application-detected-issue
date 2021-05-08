@@ -35,7 +35,7 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     TextView viewDetectedIssueSeverityTW;
     TextView viewDetectedIssueIdentifiedDateTimeTW;
 
-    private final int INTENT_CODE = 2;
+    private static final int INTENT_CODE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     }
 
     public void deleteDetectedIssue(View view) {
-        new DeleteDetectedIssueAsyncTask().execute(detectedIssueId);
+        firestore.collection("DetectedIssues").document(detectedIssueId).delete();
         Toast.makeText(this,"Detected issue has been successfully deleted!",Toast.LENGTH_LONG).show();
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK,returnIntent);
