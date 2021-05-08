@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Filter;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -103,16 +104,16 @@ public class DetectedIssueListActivity extends AppCompatActivity {
                             detectedIssueList.add(detectedIssue);
                         }
                         detectedIssueAdapter.notifyDataSetChanged();
-                        setDetectedIssueCounter(detectedIssueList);
+                        setDetectedIssueCounter();
                     }
                 });
             }
         });
     }
 
-    public void setDetectedIssueCounter(ArrayList<DetectedIssue> list){
+    public void setDetectedIssueCounter(){
         String title;
-        if(list == null || list.isEmpty()){
+        if(detectedIssueAdapter.getItemCount() == 0){
             title = "You don't have any registered issues!";
             emptyIssueList.setText(title);
         }else{
@@ -135,11 +136,19 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String searchValue) {
-                detectedIssueAdapter.getFilter().filter(searchValue);
+                Filter.FilterListener filterListener = new Filter.FilterListener() {
+                    @Override
+                    public void onFilterComplete(int count) {
+                        String text = "Current number of issues: " + count;
+                        emptyIssueList.setText(text);
+                    }
+                };
+                detectedIssueAdapter.getFilter().filter(searchValue,filterListener);
                 return false;
             }
 
         });
+
         return true;
     }
 
