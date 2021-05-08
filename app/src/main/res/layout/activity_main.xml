@@ -14,6 +14,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
         android:text="@string/login"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@id/editTextEmail"
