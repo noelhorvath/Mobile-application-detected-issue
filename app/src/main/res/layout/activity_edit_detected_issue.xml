@@ -1,9 +1,253 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditDetectedIssueActivity">
+    tools:context=".EditDetectedIssueActivity"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/editDetectedIssueTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_new_detected_issue"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssuePatientContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssuePatientLabel"
+                android:text="@string/patient_name_label"
+                android:textSize="20sp"
+                android:labelFor="@id/editDetectedIssuePatient"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/editDetectedIssuePatient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:inputType="textPersonName"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:autofillHints="name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssueCodeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssuePatientContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssueCodeLabel"
+                android:text="@string/code_label"
+                android:textSize="20sp"
+                android:labelFor="@id/editDetectedIssueCode"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/editDetectedIssueCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:autofillHints="code" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssueStatusContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueCodeContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssueStatusLabel"
+                android:text="@string/status_label"
+                android:textSize="20sp"
+                android:labelFor="@id/editDetectedIssueStatus"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/editDetectedIssueStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:inputType="text"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:autofillHints="status" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssueSeverityContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueStatusContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssueSeverityLabel"
+                android:text="@string/severity_label"
+                android:textSize="20sp"
+                android:labelFor="@id/editDetectedIssueSeverity"
+                android:layout_marginEnd="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Spinner
+                android:id="@+id/editDetectedIssueSeverity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/severity"
+                android:textAlignment="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssueIdentifiedDateTimeContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueSeverityContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssueIdentifiedDateTimeLabel"
+                android:text="@string/identified_datetime"
+                android:textSize="20sp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editDetectedIssueIdentifiedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="9"
+                    android:inputType="date"
+                    android:hint="@string/date"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
+                <EditText
+                    android:id="@+id/editDetectedIssueIdentifiedTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="9"
+                    android:inputType="time"
+                    android:hint="@string/time"
+                    android:textSize="20sp"
+                    android:textAlignment="center"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/editDetectedIssueDetailContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueIdentifiedDateTimeContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/editDetectedIssueDetailLabel"
+                android:text="@string/detail_label"
+                android:textSize="20sp"
+                android:layout_marginEnd="5dp"
+                android:labelFor="@id/createDetectedIssueDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/editDetectedIssueDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="200dp"
+                android:ems="12"
+                android:inputType="textMultiLine"
+                android:textSize="20sp"
+                android:autofillHints="detail" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editDetectedIssueDetailContainer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
+            android:layout_marginTop="25dp">
+
+            <Button
+                android:id="@+id/editDetectedIssueCreateButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:onClick="editDetectedIssue"
+                android:textSize="16sp"
+                android:layout_marginEnd="30dp"
+                />
+
+            <Button
+                android:id="@+id/editDetectedIssueCancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:onClick="cancel"
+                android:textSize="16sp"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
