@@ -140,7 +140,7 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                     detectedIssue.setStatus(status);
                     detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(OffsetDateTime.now().getOffset()))));
                     detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
-                    new CreateDetectedIssueAsyncTask().execute(detectedIssue);
+                    firestore.collection("DetectedIssues").add(detectedIssue);
                     backToDetectedIssuesListActivity();
                 }
             });
