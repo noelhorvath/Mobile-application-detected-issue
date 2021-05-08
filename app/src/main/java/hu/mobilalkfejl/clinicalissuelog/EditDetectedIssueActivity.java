@@ -138,12 +138,14 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
                 editDetectedIssueStatusET.setText(detectedIssue.getStatus());
                 editDetectedIssueDetailET.setText(detectedIssue.getDetail());
                 editDetectedIssueSeveritySpinner.setSelection(1);
+
                 String[] severity_list = getBaseContext().getResources().getStringArray(R.array.severity);
                 for(int i = 0; i < severity_list.length; i++){
                     if(severity_list[i].equals(detectedIssue.getSeverity())){
                         editDetectedIssueSeveritySpinner.setSelection(i);
                     }
                 }
+                
                 calendar.setTime(detectedIssue.getIdentifiedDateTime().toDate());
                 editDetectedIssueIdentifiedDateET.setText(new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(calendar.getTime()));
                 editDetectedIssueIdentifiedTimeET.setText(new SimpleDateFormat("HH:mm", Locale.ENGLISH).format(calendar.getTime()));
@@ -170,15 +172,22 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
             detectedIssue.setCode(code);
             detectedIssue.setPatient(patient);
             detectedIssue.setStatus(status);
+            detectedIssue.setId(currentDetectedIssueId);
             detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(OffsetDateTime.now().getOffset()))));
-            new UpdateDetectedIssueAsyncTask().execute(detectedIssue);
-            backToDetectedIssuesListActivity();
+            firestore.collection("DetectedIssues").document(detectedIssue._getId())
+                    .update("status",detectedIssue.getStatus(),
+                            "severity",detectedIssue.getSeverity(),
+                            "identifiedDateTime",detectedIssue.getIdentifiedDateTime(),
+                            "code",detectedIssue.getCode(),
+                            "detail",detectedIssue.getDetail(),
+                            "patient",detectedIssue.getPatient());
+            backToViewDetectedIssuesActivity();
 
             Toast.makeText(this,"Detected issue has been successfully updated!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void backToDetectedIssuesListActivity(){
+    public void backToViewDetectedIssuesActivity(){
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
