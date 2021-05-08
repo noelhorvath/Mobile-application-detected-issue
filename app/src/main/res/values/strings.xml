@@ -42,6 +42,7 @@
     <string name="delete">Delete</string>
     <string name="identified_date_time">Identified date time</string>
     <string name="go_back">Go back</string>
+    <string name="confirm">Confirm</string>
     <string-array name="gender">
         <item name="male">Male</item>
         <item name="female">Female</item>
