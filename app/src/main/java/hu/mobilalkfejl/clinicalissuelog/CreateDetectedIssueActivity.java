@@ -53,12 +53,16 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
     EditText createDetectedIssueIdentifiedDateET;
     EditText createDetectedIssueIdentifiedTimeET;
 
+    NotificationHandler notificationHandler;
+
     FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_detected_issue);
+
+        notificationHandler = new NotificationHandler(this);
 
         createDetectedIssueSeveritySpinner = findViewById(R.id.createDetectedIssueSeverity);
         createDetectedIssuePatientET = findViewById(R.id.createDetectedIssuePatient);
@@ -141,6 +145,9 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
                     detectedIssue.setIdentifiedDateTime(new Timestamp(Date.from(dateTime.toInstant(OffsetDateTime.now().getOffset()))));
                     detectedIssue.setAuthor(queryDocumentSnapshots.getDocuments().get(0).toObject(Practitioner.class));
                     firestore.collection("DetectedIssues").add(detectedIssue);
+
+                    notificationHandler.sendAfterCreate("New" + detectedIssue.getPatient() + "'s detected issue has been successfully created!");
+
                     backToDetectedIssuesListActivity();
                 }
             });

@@ -34,6 +34,7 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     TextView viewDetectedIssueDetailTW;
     TextView viewDetectedIssueSeverityTW;
     TextView viewDetectedIssueIdentifiedDateTimeTW;
+    NotificationHandler notificationHandler;
 
     private static final int INTENT_CODE = 2;
 
@@ -42,6 +43,8 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detected_issue);
         detectedIssueId = this.getIntent().getCharSequenceExtra("detectedIssueId").toString();
+
+        notificationHandler = new NotificationHandler(this);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -88,7 +91,7 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
 
     public void deleteDetectedIssue(View view) {
         firestore.collection("DetectedIssues").document(detectedIssueId).delete();
-        Toast.makeText(this,"Detected issue has been successfully deleted!",Toast.LENGTH_LONG).show();
+        notificationHandler.sendAfterDelete("A detected issue has been successfully deleted!");
         Intent returnIntent = new Intent();
         setResult(Activity.RESULT_OK,returnIntent);
         finish();

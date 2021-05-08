@@ -56,10 +56,14 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
 
     FirebaseFirestore firestore;
 
+    NotificationHandler notificationHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_detected_issue);
+
+        notificationHandler = new NotificationHandler(this);
 
         editDetectedIssueSeveritySpinner = findViewById(R.id.editDetectedIssueSeverity);
         editDetectedIssuePatientET = findViewById(R.id.editDetectedIssuePatient);
@@ -181,9 +185,10 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
                             "code",detectedIssue.getCode(),
                             "detail",detectedIssue.getDetail(),
                             "patient",detectedIssue.getPatient());
-            backToViewDetectedIssuesActivity();
 
-            Toast.makeText(this,"Detected issue has been successfully updated!", Toast.LENGTH_SHORT).show();
+            notificationHandler.sendAfterUpdate("A " + detectedIssue.getPatient() + "'s detected issue has been successfully updated!");
+
+            backToViewDetectedIssuesActivity();
         }
     }
 
