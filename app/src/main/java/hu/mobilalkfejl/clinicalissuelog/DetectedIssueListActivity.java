@@ -155,6 +155,14 @@ public class DetectedIssueListActivity extends AppCompatActivity {
 
         });
 
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                setDetectedIssueCounter();
+                return false;
+            }
+        });
+
         return true;
     }
 
