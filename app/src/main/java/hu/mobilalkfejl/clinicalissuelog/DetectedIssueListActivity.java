@@ -38,6 +38,8 @@ import java.util.concurrent.ExecutionException;
 
 public class DetectedIssueListActivity extends AppCompatActivity {
     private static final String LOG_TAG = DetectedIssueListActivity.class.getName();
+    private static final int SECRET_KEY_LIST = 268983;
+    private static final int SECRET_KEY_CREATE = 382637;
 
     private static String currentPractitionerEmail;
 
@@ -60,6 +62,10 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detected_issue_list);
+
+        if(!this.getIntent().getExtras().get("SECRET_KEY").toString().equals(Integer.toString(SECRET_KEY_LIST))){
+            this.finish();
+        }
 
         notificationHandler = new NotificationHandler(this);
 
@@ -165,6 +171,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
             case R.id.createDetectedIssue:
                 Intent intent = new Intent(this,CreateDetectedIssueActivity.class);
                 intent.putExtra("currentPractitionerEmail",currentPractitionerEmail);
+                intent.putExtra("SECRET_KEY",SECRET_KEY_CREATE);
                 startActivityForResult(intent, CREATE_ACTIVITY_CODE);
                 return true;
 

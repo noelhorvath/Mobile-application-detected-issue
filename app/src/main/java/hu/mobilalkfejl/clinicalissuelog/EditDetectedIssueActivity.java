@@ -41,8 +41,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class EditDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
     final Calendar calendar = Calendar.getInstance();
+    private static final int SECRET_KEY = 938613;
 
     EditText editDetectedIssuePatientET;
     EditText editDetectedIssueCodeET;
@@ -62,6 +62,10 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_detected_issue);
+
+        if(!this.getIntent().getExtras().get("SECRET_KEY").toString().equals(Integer.toString(SECRET_KEY))){
+            this.finish();
+        }
 
         notificationHandler = new NotificationHandler(this);
 

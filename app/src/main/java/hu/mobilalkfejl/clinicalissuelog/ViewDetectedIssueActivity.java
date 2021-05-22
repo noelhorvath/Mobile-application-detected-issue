@@ -37,11 +37,18 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     NotificationHandler notificationHandler;
 
     private static final int INTENT_CODE = 2;
+    private static final int SECRET_KEY = 456842;
+    private static final int SECRET_KEY_EDIT = 938613;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detected_issue);
+
+        if(!this.getIntent().getExtras().get("SECRET_KEY").toString().equals(Integer.toString(SECRET_KEY))){
+            this.finish();
+        }
+
         detectedIssueId = this.getIntent().getCharSequenceExtra("detectedIssueId").toString();
 
         notificationHandler = new NotificationHandler(this);
@@ -86,6 +93,7 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     public void editDetectedIssue(View view) {
         Intent intent = new Intent(this,EditDetectedIssueActivity.class);
         intent.putExtra("detectedIssueId",detectedIssueId);
+        intent.putExtra("SECRET_KEY", SECRET_KEY_EDIT);
         this.startActivityForResult(intent,INTENT_CODE);
     }
 

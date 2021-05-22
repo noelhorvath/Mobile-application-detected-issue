@@ -24,6 +24,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
     private ArrayList<DetectedIssue> detectedIssueData;
     private ArrayList<DetectedIssue> detectedIssueDataAll;
     private final Context context;
+    private static final int SECRET_KEY_VIEW = 456842;
 
     DetectedIssueAdapter(Context context, ArrayList<DetectedIssue> issuesData){
         this.context = context;
@@ -111,6 +112,7 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
                     intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
+                    intent.putExtra("SECRET_KEY", SECRET_KEY_VIEW);
                     ((Activity) context).startActivityForResult(intent, 1);
                 }
             });

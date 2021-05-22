@@ -26,8 +26,7 @@ import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String LOG_TAG = RegisterActivity.class.getName();
-    private static final String PREF_KEY = RegisterActivity.class.getPackage().toString();
-    //private static final int SECRET_KEY = 696969;
+    private static final int SECRET_KEY = 268983;
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
 
@@ -106,8 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             Toast.makeText(this,"Unselected active status!", Toast.LENGTH_LONG).show();
         }
 
-        if(email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || name.isEmpty() ||
-        selectedRadioButton == null || birthDate == null || qualificationCode.isEmpty() || qualificationIssuer.isEmpty() || gender.isEmpty()){
+        if(email.isEmpty() || password.isEmpty() || passwordAgain.isEmpty() || name.isEmpty() || selectedRadioButton == null || qualificationCode.isEmpty() || qualificationIssuer.isEmpty() || gender.isEmpty()){
 
             Toast.makeText(this,"Registration form is incomplete!",Toast.LENGTH_LONG).show();
 
@@ -142,6 +140,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     public void afterRegistration(String email){
         Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
+        intent.putExtra("SECRET_KEY", SECRET_KEY);
         startActivity(intent);
     }
 

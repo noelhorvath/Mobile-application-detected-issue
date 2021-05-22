@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
+    private static final int SECRET_KEY = 268983;
 
     EditText emailET;
     EditText passwordET;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     public void afterLogin(String email) {
         Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
+        intent.putExtra("SECRET_KEY",SECRET_KEY);
         startActivity(intent);
     }
 }
