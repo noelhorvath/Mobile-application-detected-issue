@@ -109,11 +109,13 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
-                    intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
-                    intent.putExtra("SECRET_KEY", SECRET_KEY_VIEW);
-                    ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,0,0,view.getWidth(), view.getHeight());
-                    ((Activity) context).startActivityForResult(intent, 1, options.toBundle());
+                    if(!detectedIssueData.isEmpty()){
+                        Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
+                        intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
+                        intent.putExtra("SECRET_KEY", SECRET_KEY_VIEW);
+                        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,0,0,view.getWidth(), view.getHeight());
+                        ((Activity) context).startActivityForResult(intent, 1, options.toBundle());
+                    }
                 }
             });
         }

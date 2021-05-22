@@ -78,7 +78,7 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         try{
-            Thread.sleep(120);
+            Thread.sleep(240);
         }catch(InterruptedException e){
             e.printStackTrace();
         }
