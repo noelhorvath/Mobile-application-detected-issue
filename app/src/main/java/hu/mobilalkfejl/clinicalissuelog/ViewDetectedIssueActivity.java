@@ -115,6 +115,8 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
     }
 
     public void goBackToListActivity(View view) {
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
 }
