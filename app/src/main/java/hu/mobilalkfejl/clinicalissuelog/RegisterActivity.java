@@ -26,7 +26,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static final String LOG_TAG = RegisterActivity.class.getName();
     private static final int SECRET_KEY = 268983;
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
@@ -115,7 +114,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             if(password.equals(passwordAgain)){
                 firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, task ->{
                     if (task.isSuccessful()) {
-                        Log.d(LOG_TAG, "Practitioner created successfully");
                         Qualification qualification = new Qualification(qualificationCode,qualificationIssuer);
                         @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
                         Practitioner practitioner = null;
@@ -127,7 +125,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                         mFirestore.collection("Practitioners").add(practitioner);
                         afterRegistration(email, view);
                     }else{
-                             Log.d(LOG_TAG, "Practitioner creation failed!");
                             Toast.makeText(RegisterActivity.this,"Practitioner creation failed: \n" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });

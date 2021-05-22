@@ -1,7 +1,6 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,10 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Filter;
@@ -21,23 +17,15 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class DetectedIssueListActivity extends AppCompatActivity {
-    private static final String LOG_TAG = DetectedIssueListActivity.class.getName();
     private static final int SECRET_KEY_LIST = 268983;
     private static final int SECRET_KEY_CREATE = 382637;
 
@@ -208,7 +196,6 @@ public class DetectedIssueListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(reloadNeeded){
-            Log.d(LOG_TAG, String.valueOf(detectedIssueList.isEmpty()));
             detectedIssueList.clear();
             initializeDetectedIssuesForAdapter();
             reloadNeeded = false;
