@@ -1,22 +1,17 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -82,19 +77,14 @@ public class ViewDetectedIssueActivity extends AppCompatActivity {
 
             }
         });
-
-        try{
-            Thread.sleep(240);
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }
     }
 
     public void editDetectedIssue(View view) {
         Intent intent = new Intent(this,EditDetectedIssueActivity.class);
         intent.putExtra("detectedIssueId",detectedIssueId);
         intent.putExtra("SECRET_KEY", SECRET_KEY_EDIT);
-        this.startActivityForResult(intent,INTENT_CODE);
+        ActivityOptions options = ActivityOptions.makeCustomAnimation(this,R.anim.slide_up,0);
+        this.startActivityForResult(intent,INTENT_CODE,options.toBundle());
     }
 
     public void deleteDetectedIssue(View view) {

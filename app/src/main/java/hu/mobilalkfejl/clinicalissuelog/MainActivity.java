@@ -3,6 +3,7 @@ package hu.mobilalkfejl.clinicalissuelog;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if(!email.isEmpty() && !password.isEmpty()){
             firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, task -> {
                 if(task.isSuccessful()){
-                    afterLogin(email);
+                    afterLogin(email, view);
                 }else{
                     Toast.makeText(MainActivity.this,"Practitioner login failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -64,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void afterLogin(String email) {
+    public void afterLogin(String email, View view) {
         Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
         intent.putExtra("SECRET_KEY",SECRET_KEY);
-        startActivity(intent);
+        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,0,0,view.getWidth(), view.getHeight());
+        startActivity(intent, options.toBundle());
     }
 }

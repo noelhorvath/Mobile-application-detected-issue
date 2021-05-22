@@ -1,6 +1,7 @@
 package hu.mobilalkfejl.clinicalissuelog;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
 
 public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdapter.ViewHolder> implements Filterable {
@@ -113,7 +112,8 @@ public class DetectedIssueAdapter extends RecyclerView.Adapter<DetectedIssueAdap
                     Intent intent = new Intent(context, ViewDetectedIssueActivity.class);
                     intent.putExtra("detectedIssueId",detectedIssueData.get(getBindingAdapterPosition())._getId());
                     intent.putExtra("SECRET_KEY", SECRET_KEY_VIEW);
-                    ((Activity) context).startActivityForResult(intent, 1);
+                    ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,0,0,view.getWidth(), view.getHeight());
+                    ((Activity) context).startActivityForResult(intent, 1, options.toBundle());
                 }
             });
         }

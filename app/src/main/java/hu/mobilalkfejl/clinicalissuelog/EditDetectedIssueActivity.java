@@ -125,16 +125,6 @@ public class EditDetectedIssueActivity extends AppCompatActivity implements Adap
         initEditTextsWithDetectedIssueData();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        try {
-            Thread.sleep(240);
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        }
-    }
-
     public void initEditTextsWithDetectedIssueData(){
         firestore.collection("DetectedIssues").document(currentDetectedIssueId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             DetectedIssue detectedIssue = new DetectedIssue();

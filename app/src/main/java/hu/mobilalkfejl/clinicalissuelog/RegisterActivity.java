@@ -3,6 +3,7 @@ package hu.mobilalkfejl.clinicalissuelog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -124,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                             Toast.makeText(RegisterActivity.this,"Wrong date format!",Toast.LENGTH_LONG).show();
                         }
                         mFirestore.collection("Practitioners").add(practitioner);
-                        afterRegistration(email);
+                        afterRegistration(email, view);
                     }else{
                              Log.d(LOG_TAG, "Practitioner creation failed!");
                             Toast.makeText(RegisterActivity.this,"Practitioner creation failed: \n" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -137,11 +138,12 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    public void afterRegistration(String email){
+    public void afterRegistration(String email, View view){
         Intent intent = new Intent(this, DetectedIssueListActivity.class);
         intent.putExtra("currentPractitionerEmail",email);
         intent.putExtra("SECRET_KEY", SECRET_KEY);
-        startActivity(intent);
+        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(view,0,0,view.getWidth(), view.getHeight());
+        startActivity(intent, options.toBundle());
     }
 
     private void updateLabel() {
