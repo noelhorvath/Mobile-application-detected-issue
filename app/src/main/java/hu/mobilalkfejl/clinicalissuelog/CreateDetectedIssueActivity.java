@@ -21,27 +21,17 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.type.DateTime;
 
-import java.sql.Time;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class CreateDetectedIssueActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private static final String LOG_TAG = CreateDetectedIssueActivity.class.getName();
     final Calendar calendar = Calendar.getInstance();
     private static final int SECRET_KEY = 382637;
 
@@ -120,8 +110,6 @@ public class CreateDetectedIssueActivity extends AppCompatActivity implements Ad
         createDetectedIssueSeveritySpinner.setAdapter(adapter);
 
         firestore = FirebaseFirestore.getInstance();
-
-        Log.d(LOG_TAG,"onCreate");
     }
 
     public void createDetectedIssue(View view) {
